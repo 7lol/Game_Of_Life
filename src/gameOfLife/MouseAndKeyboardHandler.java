@@ -22,8 +22,8 @@ public class MouseAndKeyboardHandler implements KeyListener,
 			if (e.getKeyCode() == KeyEvent.VK_C) {
 				for (int x = 0; x < Simulator.maxX; x++) {
 					for (int y = 0; y < Simulator.maxY; y++) {
-						Main.simulation.cells.get(x).get(y).willBeAlive(false);
-						Main.simulation.cells.get(x).get(y).setAlive(false);
+						Main.getSimulation().cells.get(x).get(y).willBeAlive(false);
+						Main.getSimulation().cells.get(x).get(y).setAlive(false);
 					}
 				}
 			}
@@ -35,7 +35,7 @@ public class MouseAndKeyboardHandler implements KeyListener,
 					Cell._grid = true;
 				for (int x = 0; x < Simulator.maxX; x++) {
 					for (int y = 0; y < Simulator.maxY; y++) {
-						Main.simulation.cells.get(x).get(y).stateChanged(true);
+						Main.getSimulation().cells.get(x).get(y).stateChanged(true);
 					}
 				}
 			}
@@ -44,9 +44,9 @@ public class MouseAndKeyboardHandler implements KeyListener,
 				Random random = new Random();
 				for (int x = 0; x < Simulator.maxX; x++) {
 					for (int y = 0; y < Simulator.maxY; y++) {
-						Main.simulation.cells.get(x).get(y)
+						Main.getSimulation().cells.get(x).get(y)
 								.setAlive(random.nextBoolean());
-						Main.simulation.cells.get(x).get(y)
+						Main.getSimulation().cells.get(x).get(y)
 								.willBeAlive(random.nextBoolean());
 					}
 				}
@@ -55,7 +55,7 @@ public class MouseAndKeyboardHandler implements KeyListener,
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			if (go) {
 				while (Simulator.sync>0){
-					Main.simulation.drawAll(Main.mainWindow.getGraphics());
+					Main.getSimulation().drawAll(Main.getMainWindow().getGraphics());
 					try {
 						Thread.sleep((long) 5);
 					} catch (InterruptedException e2) {
@@ -63,10 +63,12 @@ public class MouseAndKeyboardHandler implements KeyListener,
 					}
 				}
 				go = false;
-				Main.startedThreads = false;
+				Main.setStartedThreads(false);
 
 			} else {
-				Main.startedThreads = true;
+				Main.set_startime(System.currentTimeMillis());
+				Main.set_frames(0);
+				Main.setStartedThreads(true);
 				go = true;
 			}
 		}
@@ -88,9 +90,9 @@ public class MouseAndKeyboardHandler implements KeyListener,
 			int mx = e.getX() / Cell._size;
 			int my = e.getY() / Cell._size;
 			if (lastButton == 1)
-				Main.simulation.cells.get(mx).get(my).willBeAlive(true);
+				Main.getSimulation().cells.get(mx).get(my).willBeAlive(true);
 			else
-				Main.simulation.cells.get(mx).get(my).willBeAlive(false);
+				Main.getSimulation().cells.get(mx).get(my).willBeAlive(false);
 		}
 	}
 
@@ -121,9 +123,9 @@ public class MouseAndKeyboardHandler implements KeyListener,
 			int mx = e.getX() / Cell._size;
 			int my = e.getY() / Cell._size;
 			if (lastButton == 1)
-				Main.simulation.cells.get(mx).get(my).willBeAlive(true);
+				Main.getSimulation().cells.get(mx).get(my).willBeAlive(true);
 			else
-				Main.simulation.cells.get(mx).get(my).willBeAlive(false);
+				Main.getSimulation().cells.get(mx).get(my).willBeAlive(false);
 		}
 	}
 

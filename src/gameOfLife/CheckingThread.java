@@ -12,22 +12,22 @@ public class CheckingThread extends Thread implements Runnable {
 
 	public void updateNextState(int i, int j) {
 		if (MouseAndKeyboardHandler.go) {
-			Main.simulation.cells.get(i).get(j).updateCellNextState();
+			Main.getSimulation().cells.get(i).get(j).updateCellNextState();
 		}
 	}
 
-	public  void run() {
-		synchronized (Main.simulation) {
-		if (_start >= 0)
-			if (MouseAndKeyboardHandler.go) {
-				for (int j = _start; j > _start - _jump; j--) {
-					for (int i = 0; i < Simulator.maxX; i++) {
-						updateNextState(i, j);
+	public void run() {
+		synchronized (Main.getSimulation()) {
+			if (_start >= 0)
+				if (MouseAndKeyboardHandler.go) {
+					for (int j = _start; j > _start - _jump; j--) {
+						for (int i = 0; i < Simulator.maxY; i++) {
+							Main.getSimulation().cells.get(j).get(i).updateCellNextState();
+						}
 					}
-				}
 					Simulator.sync = Simulator.sync - 1;
 					_start -= _jump;
 				}
-			}
+		}
 	}
 }

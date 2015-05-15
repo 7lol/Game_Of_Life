@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Simulator {
-	final static int maxX = Main._width / Cell._size;
-	final static int maxY = Main._height / Cell._size;
+	final static int maxX = Main.get_width() / Cell._size;
+	final static int maxY = Main.get_height() / Cell._size;
 	static boolean started = false;
-	Graphics graph=Main.mainWindow.getGraphics();
+	Graphics graph = Main.getMainWindow().getGraphics();
 	static int sync = 0;
 	static int numberOfThreads = 0;
 	Thread thread;
@@ -28,18 +28,18 @@ public class Simulator {
 	}
 
 	public void drawAll(Graphics graph) {
-		for (int j = 0; j < Simulator.maxY; j++) {
-			for (int i = 0; i < Simulator.maxX; i++) {
-				Main.simulation.cells.get(i).get(j).draw(graph);
+		for (List<Cell> cellList: cells) {
+			for (Cell singleCell: cellList) {
+				singleCell.draw(graph);
 			}
 		}
 	}
 
-	public  void prepareToDraw(Graphics graph) {
+	public void oneCycleSimulation(Graphics graph) {
 		if (MouseAndKeyboardHandler.go) {
-			runnable = new CheckingThread(Simulator.maxY-1, 1);
-			sync = maxY + 1;
-			for (int j = 0; j < maxY; j++) {
+			runnable = new CheckingThread(cells.size() - 1, 1);
+			sync = cells.size() + 1;
+			for (int i = 0; i < cells.size(); i++) {
 				thread = new Thread(runnable);
 				thread.start();
 			}
@@ -48,21 +48,14 @@ public class Simulator {
 
 	public synchronized void draw(Graphics graph) {
 		drawAll(graph);
-		prepareToDraw(graph);
+		oneCycleSimulation(graph);
 		if (MouseAndKeyboardHandler.go) {
 			sync--;
-			for (int j = 0; j < maxY; j++) {
-				for (int i = 0; i < maxX; i++) {
-					cells.get(i).get(j).updateCellState();
+			Main.set_frames(Main.get_frames()+1);
+			for (List<Cell> cellList: cells) {
+				for (Cell singleCell: cellList) {
+					singleCell.updateCellState();
 				}
-			}
-		}
-	}
-
-	public void draw1(Graphics graph) {
-		for (int j = 0; j < maxY; j++) {
-			for (int i = 0; i < maxX; i++) {
-				cells.get(i).get(j).draw(graph);
 			}
 		}
 	}

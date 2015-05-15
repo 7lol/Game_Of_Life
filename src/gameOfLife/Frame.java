@@ -27,9 +27,9 @@ public class Frame extends JFrame {
 				3);
 		if (input==null) System.exit(0);
 		try {
-			Main._fps = Float.parseFloat(input);
+			Main.set_fps(Float.parseFloat(input));
 		} catch (Exception e) {
-			Main._fps = 20;
+			Main.set_fps(20);
 		}
 		this.setExtendedState(MAXIMIZED_BOTH);
 

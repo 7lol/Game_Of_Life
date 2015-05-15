@@ -29,21 +29,21 @@ public class Cell {
 			y1 = Simulator.maxY - 1;
 		if (y2 >= Simulator.maxY)
 			y2 = 0;
-		if (Main.simulation.cells.get(_x).get(y1).isAlive())
+		if (Main.getSimulation().cells.get(_x).get(y1).isAlive())
 			friends++;
-		if (Main.simulation.cells.get(_x).get(y2).isAlive())
+		if (Main.getSimulation().cells.get(_x).get(y2).isAlive())
 			friends++;
-		if (Main.simulation.cells.get(x1).get(y1).isAlive())
+		if (Main.getSimulation().cells.get(x1).get(y1).isAlive())
 			friends++;
-		if (Main.simulation.cells.get(x1).get(_y).isAlive())
+		if (Main.getSimulation().cells.get(x1).get(_y).isAlive())
 			friends++;
-		if (Main.simulation.cells.get(x1).get(y2).isAlive())
+		if (Main.getSimulation().cells.get(x1).get(y2).isAlive())
 			friends++;
-		if (Main.simulation.cells.get(x2).get(y1).isAlive())
+		if (Main.getSimulation().cells.get(x2).get(y1).isAlive())
 			friends++;
-		if (Main.simulation.cells.get(x2).get(_y).isAlive())
+		if (Main.getSimulation().cells.get(x2).get(_y).isAlive())
 			friends++;
-		if (Main.simulation.cells.get(x2).get(y2).isAlive())
+		if (Main.getSimulation().cells.get(x2).get(y2).isAlive())
 			friends++;
 		return friends;
 	}
@@ -59,7 +59,7 @@ public class Cell {
 	public void updateCellState() {
 		setAlive(_nextAliveState);
 	}
-	
+
 	public void stateChanged(boolean in){
 		_stateChanged=in;
 	}
