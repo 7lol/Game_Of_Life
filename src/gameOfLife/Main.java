@@ -1,6 +1,7 @@
 package gameOfLife;
 
 import java.awt.Font;
+import java.util.List;
 
 public class Main {
 	private static double _startime = 0;
@@ -23,7 +24,7 @@ public class Main {
 		mainWindow.startDrawing();
 		simulation = new Simulator();
 		try {
-			Thread.sleep((long) 50);
+			Thread.sleep((long) 100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -31,6 +32,12 @@ public class Main {
 		long thisFrame = 0;
 		double fps = 0 ;
 		mainWindow.setFont(new Font("SansSerif", Font.BOLD, 25));
+		simulation.draw(mainWindow.getGraphics());
+		for (List<Cell> cellList: simulation.cells) {
+			for (Cell singleCell: cellList) {
+				singleCell.stateChanged();
+			}
+		}
 		while (true) {
 			if(MouseAndKeyboardHandler.go){
 				thisFrame = System.currentTimeMillis();
@@ -39,7 +46,6 @@ public class Main {
 			simulation.draw(mainWindow.getGraphics());
 			if (MouseAndKeyboardHandler.go)
 				try {
-					System.out.println(get_frames()/(1000*(System.currentTimeMillis()-get_startime())));
 					if(_fps<fps)
 					do
 					{

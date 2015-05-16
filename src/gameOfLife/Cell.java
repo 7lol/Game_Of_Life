@@ -6,7 +6,7 @@ import java.awt.Graphics;
 public class Cell {
 	private boolean _alive;
 	private boolean _nextAliveState;
-	private boolean _stateChanged = true;
+	private boolean _stateChanged;
 	private int _y;
 	private int _x;
 	static int _size = 20;
@@ -16,6 +16,7 @@ public class Cell {
 		_alive = false;
 		_x = x;
 		_y = y;
+		_stateChanged = true;
 	}
 
 	public int checkForFriends() {
@@ -60,8 +61,12 @@ public class Cell {
 		setAlive(_nextAliveState);
 	}
 
-	public void stateChanged(boolean in){
-		_stateChanged=in;
+	public void stateChanged(boolean in) {
+		_stateChanged = in;
+	}
+	
+	public void stateChanged() {
+		_stateChanged = true;
 	}
 
 	public boolean isAlive() {
@@ -100,7 +105,7 @@ public class Cell {
 				graph.fillRect(_x * _size, _y * _size, _size, _size);
 			}
 		}
-		_stateChanged=false;
+		_stateChanged = false;
 	}
 
 }
