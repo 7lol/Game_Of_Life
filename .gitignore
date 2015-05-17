@@ -1,9 +1,6 @@
 *.class
 *.log
 
-# Eclipse Core
-.project
-
 # External tool builders
 .externalToolBuilders/
 
@@ -12,9 +9,6 @@
 
 # CDT-specific
 .cproject
-
-# JDT-specific (Eclipse Java Development Tools)
-.classpath
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
